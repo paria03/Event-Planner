@@ -1,0 +1,275 @@
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #F5F5F5; /* Light gray background */
+    color: #2E2E2E; /* Dark charcoal for text */
+    /* setting default styles for the body */
+}
+
+nav {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    padding: 15px;
+    margin: auto;
+    text-align: center;
+    /* styling the navigation bar */
+}
+
+header{
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    padding: 15px;
+    margin: auto;
+    text-align: center;
+    /* styling the header */
+}
+
+h1 {
+    margin: 0;
+    color: #2E2E2E; /* Dark charcoal for header */
+    font-size: 2.5em;
+    /* styling for h1 headers */
+}
+
+h2 {
+    color: #555555; /* Softer gray */
+    font-size: 0.8em;
+    /* styling for h2 headers */
+}
+
+p {
+    color: #666666; /* Mid-gray */
+    font-size: 0.8em;
+    /* paragraph styling */
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    /* remove bullet points and padding from ul */
+}
+
+/* Navigation and Buttons */
+nav {
+    display: flex;
+    justify-content: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    /* center and add a shadow to the nav */
+}
+
+.nav-btn, button {
+    padding: 10px 20px;
+    margin: 0 10px;
+    background-color: #c19a6b;
+    color: white;
+    border-radius: 5px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    /* styling buttons and nav buttons */
+}
+
+.nav-btn:hover, button:hover {
+    background-color: #a47c4c; /* Slightly darker gold */
+    transform: translateY(-2px);
+    /* hover effect for buttons */
+}
+
+button:focus, .nav-btn:focus {
+    outline: none;
+    /* remove focus outline on buttons */
+}
+
+/* Form Styling */
+form {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    max-width: 400px;
+    background: #FFFFFF;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    /* form layout and styling */
+}
+
+.filter form {
+    display: flex;
+    flex-direction: column;
+    margin: 20px auto;
+    max-width: 600px;
+    background: #FFFFFF;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Styling each row to display filters side by side */
+.filter-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+/* Ensuring each filter item takes up approximately half the width */
+.filter-item {
+    flex: 0 0 48%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Styling labels and inputs */
+.filter-item label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.filter-item input[type="text"],
+.filter-item input[type="date"],
+.filter-item select {
+    padding: 8px;
+    border: 1px solid #CCCCCC;
+    border-radius: 4px;
+}
+
+/* Styling the filter button */
+.filter-btn {
+
+    align-self: center;
+}
+
+.filter-btn:hover {
+    background-color: #a47c4c;
+}
+
+
+label {
+    margin-top: 5px;
+    font-weight: bold;
+    color: #2E2E2E;
+    font-size: 0.9em;
+    /* styling labels inside the form */
+}
+
+input,
+textarea,
+select {
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px solid #dddddd;
+    border-radius: 4px;
+    font-size: 1em;
+    transition: border-color 0.3s ease;
+    /* input, textarea, and select styles */
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    border-color: #a47c4c; /* Focus effect in gold */
+    outline: none;
+    /* focus state for form inputs */
+}
+
+textarea {
+    resize: vertical;
+    /* allow vertical resizing for textareas */
+}
+
+a {
+    color: #1E90FF; /* Modern soft blue for links */
+    text-decoration: none;
+    /* default link styling */
+}
+
+a:hover {
+    text-decoration: underline;
+    /* underline links on hover */
+}
+
+/* Main Section */
+main {
+    padding: 20px;
+    text-align: center;
+    margin: 30px auto;
+    /* main section layout */
+}
+
+/* Event List Styling */
+#event-list ul {
+    list-style-type: none;
+    padding: 0;
+    /* remove bullet points from event list */
+}
+
+#event-list li {
+    margin-bottom: 15px;
+    /* space between event list items */
+}
+
+/* Event Box Styling */
+.event-box {
+    background-color: #FFFFFF; /* Clean white event box */
+    border: 1px solid #dddddd;
+    padding: 20px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    width: 90%;
+    margin: auto;
+    /* box styling for individual events */
+}
+
+.event-box:hover {
+    transform: scale(1.02);
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15); /* Stronger shadow on hover */
+    /* hover effect for event boxes */
+}
+
+/* Event Name Styling */
+.event-name {
+    font-size: 2.2em;
+    color: #2E2E2E;
+    margin: 0;
+    /* style the event name */
+}
+
+.event-location, .event-date, .event-description, .event-capacity,.event-category, .event-duration, .event-isReservationRequired , .event-price{
+    font-size: 1em;
+    color: #666666;
+    margin: 5px 0;
+    /* styling details inside event boxes */
+}
+
+/* Link Styles */
+.event-name a {
+    color: #c19a6b; /* Gold for event name links */
+    font-weight: bold;
+    text-decoration: none;
+    /* event name link styling */
+}
+
+.event-name a:hover {
+    text-decoration: underline;
+    color: #a47c4c; /* Darker gold on hover */
+    /* hover effect for event name links */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    h1, h2 {
+        font-size: 1.5rem;
+        /* smaller font size on smaller screens */
+    }
+
+    button {
+        width: 100%;
+        /* make buttons take full width on small screens */
+    }
+
+    form {
+        width: 100%;
+        max-width: 95%;
+        /* form layout for smaller screens */
+    }
+}

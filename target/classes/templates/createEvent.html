@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Event</title>
+    <link rel="stylesheet" href="/styles.css">
+    <style>
+        /* Price input hidden by default */
+        #priceSection {
+            display: none;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+<nav>
+    <button class="nav-btn" onclick="window.location.href='/'">Home</button>
+    <button class="nav-btn" onclick="window.location.href='/logout'">Logout</button>
+</nav>
+<header>
+    <h1>Create Event</h1>
+</header>
+<main>
+    <form action="/perform_creating_event" method="post">
+        <label for="name">Name of the Event:</label>
+        <input type="text" id="name" name="eventName" required>
+        <br>
+        <label for="category">Category:</label>
+        <input type="text" id="category" name="category" required>
+        <br>
+        <label for="date">Date:</label>
+        <input type="date" id="date" name="date" required>
+        <br>
+        <label for="location">Location:</label>
+        <input type="text" id="location" name="location" required>
+        <br>
+        <label for="duration">Duration:</label>
+        <input type="text" id="duration" name="duration" required>
+        <br>
+
+        <!-- Explanation for LLM description generation -->
+        <h3>Generate Event Description</h3>
+        <p>Enter keywords related to your event below, and click "Generate Description" to have our AI generate a detailed event description for you.</p>
+        <input type="text" id="keywords" name="keywords" required>
+        <button type="button" onclick="generateDescription()">Generate Description</button>
+        <label for="description">Description:</label>
+        <p>If you don't want it auto-generated, feel free to fill it out yourself!</p>
+
+        <textarea id="description" name="description"></textarea>
+        <br>
+
+        <label for="capacity">Capacity:</label>
+        <input type="number" id="capacity" name="capacity" required>
+        <br>
+
+        <label>Is it Free?</label>
+        <div>
+            <input type="radio" id="isFreeYes" name="isFree" value="FREE" onclick="hidePriceInput()" required>
+            <label for="isFreeYes">Yes</label>
+            <input type="radio" id="isFreeNo" name="isFree" value="PAID" onclick="showPriceInput()" required>
+            <label for="isFreeNo">No</label>
+        </div>
+        <br>
+
+        <div id="priceSection">
+            <label for="pricePerPerson">Price per Person:</label>
+            <input type="number" id="pricePerPerson" name="pricePerPerson" min="0" step="0.01">
+        </div>
+
+        <label for="isReservationRequired">Is Reservation Required?</label>
+        <input type="checkbox" id="isReservationRequired" name="isReservationRequired">
+
+        <button type="submit">Create Event</button>
+    </form>
+</main>
+<script>
+    function showPriceInput() {
+        document.getElementById("priceSection").style.display = "block";
+        document.getElementById("pricePerPerson").setAttribute("required", "required");
+    }
+    function hidePriceInput() {
+        document.getElementById("priceSection").style.display = "none";
+        document.getElementById("pricePerPerson").removeAttribute("required");
+    }
+    function generateDescription() {
+        const keywords = document.getElementById('keywords').value;
+        fetch('/generate-description', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ keywords: keywords })
+        })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('description').value = data.description; // Assuming the response includes a description
+            })
+            .catch(error => console.error('Error:', error));
+    }
+</script>
+</body>
+</html>

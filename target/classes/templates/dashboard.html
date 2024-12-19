@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+</head>
+<body>
+<nav>
+    <button class="nav-btn" onclick="window.location.href='/'">Home</button>
+    <button class="nav-btn" onclick="window.location.href='/logout'">Logout</button>
+</nav>
+<header>
+    <h1>Dashboard</h1>
+</header>
+<main>
+    <div class="welcome">
+        <h1>Welcome, <span th:text="${username}">username</span></h1>
+        <button onclick="window.location.href='/createEvent'" class="create-event-btn"><i class="fas fa-plus"></i> Create Event</button>
+    </div>
+
+    <!-- Upcoming Events Section -->
+    <section class="events-section">
+        <h3>Upcoming Events</h3>
+        <div id="upcoming-event-list">
+            <p th:if="${#lists.isEmpty(upcomingEvents)}">You have no upcoming events.</p>
+            <ul th:if="${!#lists.isEmpty(upcomingEvents)}">
+                <li th:each="event : ${upcomingEvents}">
+                    <div class="event-box">
+                        <h3 class="event-name">
+                            <a th:href="@{/event_details/{id}(id=${event.id})}" th:text="${event.name}"></a>
+                        </h3>
+                        <p class="event-date">Date: <span th:text="${event.date}"></span></p>
+                        <p class="event-location">Location: <span th:text="${event.location}"></span></p>
+                        <p class="event-duration">Duration: <span th:text="${event.duration}"></span></p>
+                        <p class="event-description">Description: <span th:text="${event.description}"></span></p>
+                        <p class="event-capacity">Capacity: <span th:text="${event.capacity}"></span></p>
+                        <p class="event-category">Category: <span th:text="${event.category}"></span></p>
+                        <p class="event-price">
+                            Price: <span th:text="${event.eventPricing == T(com.example.side.project_event.planner.Model.EventPricing).FREE ? 'FREE' : '$' + event.pricePerPerson}"></span>
+                        </p>
+                        <p class="event-isReservationRequired">Is Reservation Required?
+                            <span th:text="${event.isReservationRequired == true ? 'Yes' : 'No'}"></span>
+                        </p>
+
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Past Events Section -->
+    <section class="events-section">
+        <h3>Past Events</h3>
+        <div id="past-event-list">
+            <p th:if="${#lists.isEmpty(pastEvents)}">You have no past events.</p>
+            <ul th:if="${!#lists.isEmpty(pastEvents)}">
+                <li th:each="event : ${pastEvents}">
+                    <div class="event-box">
+                        <h3 class="event-name">
+                            <a th:href="@{/event_details/{id}(id=${event.id})}" th:text="${event.name}"></a>
+                        </h3>
+                        <p class="event-date">Date: <span th:text="${event.date}"></span></p>
+                        <p class="event-location">Location: <span th:text="${event.location}"></span></p>
+                        <p class="event-duration">Duration: <span th:text="${event.duration}"></span></p>
+                        <p class="event-description">Description: <span th:text="${event.description}"></span></p>
+                        <p class="event-capacity">Capacity: <span th:text="${event.capacity}"></span></p>
+                        <p class="event-category">Category: <span th:text="${event.category}"></span></p>
+                        <p class="event-price">
+                            Price: <span th:text="${event.eventPricing == T(com.example.side.project_event.planner.Model.EventPricing).FREE ? 'FREE' : '$' + event.pricePerPerson}"></span>
+                        </p>
+                        <p class="event-isReservationRequired">Is Reservation Required?
+                            <span th:text="${event.isReservationRequired ? 'Yes' : 'No'}"></span>
+                        </p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- My Hosted Events Section (With Edit and Delete Functionality) -->
+    <section class="events-section">
+        <h3>My Hosted Events</h3>
+        <div id="hosted-event-list">
+            <p th:if="${#lists.isEmpty(hostedEvents)}">You are not hosting any events.</p>
+            <ul th:if="${!#lists.isEmpty(hostedEvents)}">
+                <li th:each="event : ${hostedEvents}">
+                    <div class="event-box">
+                        <h3 class="event-name">
+                            <a th:href="@{/event_details/{id}(id=${event.id})}" th:text="${event.name}"></a>
+                        </h3>
+                        <p class="event-date">Date: <span th:text="${event.date}"></span></p>
+                        <p class="event-location">Location: <span th:text="${event.location}"></span></p>
+                        <p class="event-duration">Duration: <span th:text="${event.duration}"></span></p>
+                        <p class="event-description">Description: <span th:text="${event.description}"></span></p>
+                        <p class="event-capacity">Capacity: <span th:text="${event.capacity}"></span></p>
+                        <p class="event-category">Category: <span th:text="${event.category}"></span></p>
+                        <p class="event-price">
+                            Price: <span th:text="${event.eventPricing == T(com.example.side.project_event.planner.Model.EventPricing).FREE ? 'FREE' : '$' + event.pricePerPerson}"></span>
+                        </p>
+                        <p class="event-isReservationRequired">Is Reservation Required?
+                            <span th:text="${event.isReservationRequired ? 'Yes' : 'No'}"></span>
+                        </p>
+                        <div class="event-actions">
+                            <button type="button" class="edit-btn" th:onclick="'toggleEditForm(' + ${event.id} + ')'"><i class="fas fa-edit"></i> Edit</button>
+                            <form th:action="@{/events/delete/{id}(id=${event.id})}" method="post" onsubmit="return confirm('Are you sure you want to delete this event?');">
+                                <input type="hidden" th:csrf/>
+                                <button type="submit" class="delete-btn"><i class="fas fa-trash"></i> Delete</button>
+                            </form>
+                        </div>
+
+                        <!-- Edit form (hidden by default) -->
+                        <div class="edit-form" th:id="'edit-form-' + ${event.id}" style="display: none;">
+                            <form th:action="@{/events/edit/{id}(id=${event.id})}" method="post">
+                                <input type="hidden" th:csrf/>
+                                <!-- Include form fields with pre-filled values -->
+                                <label th:for="'name-' + ${event.id}">Name:</label>
+                                <input type="text" th:id="'name-' + ${event.id}" name="name" th:value="${event.name}" required>
+
+                                <label th:for="'category-' + ${event.id}">Category:</label>
+                                <input type="text" th:id="'category-' + ${event.id}" name="category" th:value="${event.category}" required>
+
+                                <label th:for="'date-' + ${event.id}">Date:</label>
+                                <input type="date" th:id="'date-' + ${event.id}" name="date" th:value="${event.date}" required>
+
+                                <label th:for="'location-' + ${event.id}">Location:</label>
+                                <input type="text" th:id="'location-' + ${event.id}" name="location" th:value="${event.location}" required>
+
+                                <label th:for="'duration-' + ${event.id}">Duration:</label>
+                                <input type="text" th:id="'duration-' + ${event.id}" name="duration" th:value="${event.duration}" required>
+
+                                <label th:for="'description-' + ${event.id}">Description:</label>
+                                <textarea th:id="'description-' + ${event.id}" name="description" required th:text="${event.description}"></textarea>
+
+                                <label th:for="'capacity-' + ${event.id}">Capacity:</label>
+                                <input type="number" th:id="'capacity-' + ${event.id}" name="capacity" th:value="${event.capacity}" required>
+
+                                <!-- Event Pricing -->
+                                <label>Event Pricing:</label>
+                                <div>
+                                    <input type="radio" th:id="'isFreeYes-' + ${event.id}" name="eventPricing" value="FREE" th:checked="${event.eventPricing == T(com.example.side.project_event.planner.Model.EventPricing).FREE}">
+                                    <label th:for="'isFreeYes-' + ${event.id}">Free</label>
+
+                                    <input type="radio" th:id="'isFreeNo-' + ${event.id}" name="eventPricing" value="PAID" th:checked="${event.eventPricing == T(com.example.side.project_event.planner.Model.EventPricing).PAID}">
+                                    <label th:for="'isFreeNo-' + ${event.id}">Paid</label>
+                                </div>
+
+                                <!-- Price per Person -->
+                                <div th:if="${event.eventPricing == T(com.example.side.project_event.planner.Model.EventPricing).PAID}">
+                                    <label th:for="'pricePerPerson-' + ${event.id}">Price per Person:</label>
+                                    <input type="number" th:id="'pricePerPerson-' + ${event.id}" name="pricePerPerson" min="0" step="0.01" th:value="${event.pricePerPerson}" required>
+                                </div>
+
+                                <label th:for="'isReservationRequired-' + ${event.id}">Is Reservation Required?</label>
+                                <input type="checkbox" th:id="'isReservationRequired-' + ${event.id}" name="isReservationRequired"
+                                       th:checked="${event.isReservationRequired != null && event.isReservationRequired}" />
+
+                                <button type="submit">Save Changes</button>
+                                <br>
+                                <button type="button" th:onclick="'toggleEditForm(' + ${event.id} + ')'">Cancel</button>
+                            </form>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+</main>
+
+<script>
+    function toggleEditForm(eventId) {
+        var form = document.getElementById('edit-form-' + eventId);
+        if (form) {
+            if (form.style.display === 'none' || form.style.display === '') {
+                form.style.display = 'block';
+            } else {
+                form.style.display = 'none';
+            }
+        } else {
+            console.error('Form not found for eventId:', eventId);
+        }
+    }
+</script>
+</body>
+</html>

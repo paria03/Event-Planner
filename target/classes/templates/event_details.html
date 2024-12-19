@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event Details</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header>
+  <h1 th:text="${event.name}">Event Name</h1>
+</header>
+<main>
+  <div class="/perform_event_details">
+    <p><strong>Date:</strong> <span th:text="${event.date}">Date</span></p>
+    <p><strong>Location:</strong> <span th:text="${event.location}">Location</span></p>
+    <p><strong>Duration:</strong> <span th:text="${event.duration}">Duration</span></p>
+    <p><strong>Description:</strong> <span th:text="${event.description}">Description</span></p>
+    <p><strong>Capacity:</strong> <span th:text="${event.capacity}">Capacity</span></p>
+    <p><strong>Category:</strong> <span th:text="${event.category}">Category</span></p>
+    <p class="event-pricing">Price per person: <span th:text="${event.eventPricing}"></span></p>
+
+    <div th:if="${event.isReservationRequired}">
+      <button th:onclick="'window.location.href=\'/reserve/' + ${event.id} + '\';'">Reserve Now</button>
+
+    </div>
+  </div>
+</main>
+</body>
+</html>
